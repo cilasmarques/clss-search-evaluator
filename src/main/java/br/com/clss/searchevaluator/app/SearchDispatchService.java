@@ -4,6 +4,7 @@ import br.com.clss.searchevaluator.enviroment.Envie;
 import br.com.clss.searchevaluator.app.dtos.DatasetItemDTO;
 import br.com.clss.searchevaluator.app.dtos.SearchResultDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.net.URI;
@@ -37,11 +38,16 @@ public class SearchDispatchService {
     public SearchResultDTO execute(DatasetItemDTO query) throws IOException, InterruptedException {
         Instant startedAt = Instant.now();
         URI uri = buildUri(query.description());
+        String authToken = envie.getSearchAuthToken();
 
-        HttpRequest request = HttpRequest.newBuilder(uri)
+        HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(uri)
                 .timeout(Duration.ofMillis(TIMEOUT_MS))
-                .GET()
-                .build();
+                .GET();
+        if (StringUtils.hasText(authToken)) {
+            requestBuilder.header("Authorization", "Bearer " + authToken);
+        }
+
+        HttpRequest request = requestBuilder.build();
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
