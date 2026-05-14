@@ -48,16 +48,11 @@ class EvaluationBatchServiceTest {
                 envie
         );
 
-        OutputFileService outputFileService = new OutputFileService(
-                new com.fasterxml.jackson.databind.ObjectMapper(),
-                env.getProperty("output.dir")
-        );
-
         EvaluationBatchService service = new EvaluationBatchService(
                 jsonValidatorService,
                 searchDispatchService,
                 openAiEvaluationService,
-                outputFileService
+                new OutputService(new com.fasterxml.jackson.databind.ObjectMapper(), envie)
         );
 
         List<OutputDTO> outputs = service.evaluateAll(List.of(

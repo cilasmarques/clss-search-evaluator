@@ -17,16 +17,16 @@ public class EvaluationBatchService {
     private final JsonValidatorService jsonValidatorService;
     private final SearchDispatchService searchDispatchService;
     private final OpenAiEvaluationService openAiEvaluationService;
-    private final OutputFileService outputFileService;
+    private final OutputService outputService;
 
     public EvaluationBatchService(JsonValidatorService jsonValidatorService,
                                   SearchDispatchService searchDispatchService,
                                   OpenAiEvaluationService openAiEvaluationService,
-                                  OutputFileService outputFileService) {
+                                  OutputService outputService) {
         this.jsonValidatorService = jsonValidatorService;
         this.searchDispatchService = searchDispatchService;
         this.openAiEvaluationService = openAiEvaluationService;
-        this.outputFileService = outputFileService;
+        this.outputService = outputService;
     }
 
     public List<OutputDTO> evaluateConfiguredDataset() throws Exception {
@@ -41,7 +41,7 @@ public class EvaluationBatchService {
             outputs.add(new OutputDTO(item, searchResult, evaluationResult));
         }
         List<OutputDTO> immutableOutputs = List.copyOf(outputs);
-        outputFileService.write(immutableOutputs);
+        outputService.save(immutableOutputs);
         return immutableOutputs;
     }
 
