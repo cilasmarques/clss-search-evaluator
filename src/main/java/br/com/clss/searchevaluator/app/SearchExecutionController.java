@@ -3,7 +3,8 @@ package br.com.clss.searchevaluator.app;
 import br.com.clss.searchevaluator.app.dtos.DatasetItemDTO;
 import br.com.clss.searchevaluator.app.dtos.OutputDTO;
 import br.com.clss.searchevaluator.app.dtos.SearchResultDTO;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,20 +33,20 @@ public class SearchExecutionController {
     }
 
     @PostMapping("/run")
-    public List<OutputDTO> run() {
+    public ResponseEntity<List<OutputDTO>> run(@RequestBody List<DatasetItemDTO> datasetItems) {
         try {
-            List<DatasetItemDTO> datasetItems = jsonValidatorService.loadAndValidate();
-            List<SearchResultDTO> searchResults = searchDispatchService.executeAll(datasetItems);
-            List<OutputDTO> outputs = combine(datasetItems, searchResults);
+            List<DatasetItemDTO> validItems = jsonValidatorService.validate(datasetItems);
+            List<SearchResultDTO> searchResults = searchDispatchService.executeAll(validItems);
+            List<OutputDTO> outputs = combine(validItems, searchResults);
             outputService.save(outputs);
-            return outputs;
+            return ResponseEntity.ok(outputs);
         } catch (IllegalStateException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+            throw new ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, e.getMessage(), e);
         } catch (IOException | InterruptedException e) {
             if (e instanceof InterruptedException) {
                 Thread.currentThread().interrupt();
             }
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to execute search batch", e);
+            throw new ResponseStatusException(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR, "Failed to execute search batch", e);
         }
     }
 
