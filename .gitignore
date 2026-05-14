@@ -3,3 +3,4 @@ output/
 .idea/
 *.iml
 .env
+IMPLEMENTATION_TASKS.md
