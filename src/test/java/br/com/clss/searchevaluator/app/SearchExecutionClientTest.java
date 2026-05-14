@@ -49,6 +49,7 @@ class SearchExecutionClientTest {
         assertThat(request.getRequestUrl().host()).isEqualTo(server.getHostName());
         assertThat(request.getRequestUrl().port()).isEqualTo(server.getPort());
         assertThat(request.getPath()).isEqualTo("/search?description=Aprender%20Java%20%2B%20Spring%20%26%20testes&durationFloor=0&durationCeiling=10");
+        assertThat(request.getHeader("Authorization")).isEqualTo("Bearer test-auth-token");
         assertThat(result.url()).isEqualTo(server.url("/search?description=Aprender%20Java%20%2B%20Spring%20%26%20testes&durationFloor=0&durationCeiling=10").toString());
     }
 
@@ -109,6 +110,7 @@ class SearchExecutionClientTest {
         MockEnvironment environment = new MockEnvironment();
         environment.setProperty("search.host", host);
         environment.setProperty("search.path", "/search");
+        environment.setProperty("search.auth-token", "test-auth-token");
         environment.setProperty("search.duration-floor", "1");
         environment.setProperty("search.duration-ceiling", "12");
         environment.setProperty("search.timeout-ms", Integer.toString(timeoutMs));
