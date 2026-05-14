@@ -1,6 +1,6 @@
 package br.com.clss.searchevaluator.dataset;
 
-import br.com.clss.searchevaluator.config.DatasetProperties;
+import br.com.clss.searchevaluator.config.Envie;
 import br.com.clss.searchevaluator.dataset.dto.DatasetItemDTO;
 import br.com.clss.searchevaluator.dataset.exception.DatasetLoadException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,23 +27,24 @@ public class DefaultDatasetLoader implements DatasetLoader {
     private final ResourceLoader resourceLoader;
     private final ObjectMapper objectMapper;
     private final Validator validator;
-    private final DatasetProperties datasetProperties;
+    private final Envie envie;
 
     public DefaultDatasetLoader(ResourceLoader resourceLoader,
                                 ObjectMapper objectMapper,
                                 Validator validator,
-                                DatasetProperties datasetProperties) {
+                                Envie envie) {
         this.resourceLoader = resourceLoader;
         this.objectMapper = objectMapper;
         this.validator = validator;
-        this.datasetProperties = datasetProperties;
+        this.envie = envie;
     }
 
     @Override
     public List<DatasetItemDTO> load() {
-        Resource resource = resourceLoader.getResource(datasetProperties.path());
+        String datasetPath = envie.datasetPath();
+        Resource resource = resourceLoader.getResource(datasetPath);
         if (!resource.exists()) {
-            throw new DatasetLoadException("Dataset file not found: %s".formatted(datasetProperties.path()));
+            throw new DatasetLoadException("Dataset file not found: %s".formatted(datasetPath));
         }
 
         List<DatasetItemDTO> items = readDataset(resource);
@@ -59,9 +60,9 @@ public class DefaultDatasetLoader implements DatasetLoader {
             }
             return items;
         } catch (JsonProcessingException exception) {
-            throw new DatasetLoadException("Invalid dataset JSON at %s".formatted(datasetProperties.path()), exception);
+            throw new DatasetLoadException("Invalid dataset JSON at %s".formatted(envie.datasetPath()), exception);
         } catch (IOException exception) {
-            throw new DatasetLoadException("Unable to read dataset file: %s".formatted(datasetProperties.path()), exception);
+            throw new DatasetLoadException("Unable to read dataset file: %s".formatted(envie.datasetPath()), exception);
         }
     }
 

@@ -7,12 +7,6 @@ public record DatasetItemDTO(
         String id,
 
         @NotBlank(message = "Dataset item 'description' is required")
-        String description,
-
-        @NotBlank(message = "Dataset item 'query' is required")
-        String query,
-
-        @NotBlank(message = "Dataset item 'expectedIntent' is required")
-        String expectedIntent
+        String description
 ) {
 }

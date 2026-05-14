@@ -1,20 +1,14 @@
 [
   {
     "id": "infra-kubernetes-aws",
-    "description": "Query sobre infraestrutura Kubernetes na AWS",
-    "query": "como configurar kubernetes na aws?",
-    "expectedIntent": "infra"
+    "description": "Query sobre infraestrutura Kubernetes na AWS"
   },
   {
     "id": "seguranca-lgpd",
-    "description": "Query sobre seguranca e LGPD",
-    "query": "quais cuidados com lgpd em bases de dados?",
-    "expectedIntent": "security"
+    "description": "Query sobre seguranca e LGPD"
   },
   {
     "id": "dados-bi",
-    "description": "Query sobre BI e analise de dados",
-    "query": "como criar dashboard de bi?",
-    "expectedIntent": "bi"
+    "description": "Query sobre BI e analise de dados"
   }
 ]

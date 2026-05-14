@@ -1,6 +1,6 @@
 package br.com.clss.searchevaluator.dataset;
 
-import br.com.clss.searchevaluator.config.DatasetProperties;
+import br.com.clss.searchevaluator.config.Envie;
 import br.com.clss.searchevaluator.dataset.dto.DatasetItemDTO;
 import br.com.clss.searchevaluator.dataset.exception.DatasetLoadException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,7 +31,7 @@ class DefaultDatasetLoaderTest {
                 resourceLoader,
                 objectMapper,
                 validator,
-                new DatasetProperties("classpath:dataset/queries.json")
+                new Envie("classpath:dataset/queries.json")
         );
 
         List<DatasetItemDTO> items = loader.load();
@@ -50,7 +50,7 @@ class DefaultDatasetLoaderTest {
                 resourceLoader,
                 objectMapper,
                 validator,
-                new DatasetProperties(invalidJsonFile.toUri().toString())
+                new Envie(invalidJsonFile.toUri().toString())
         );
 
         assertThatThrownBy(loader::load)
@@ -65,8 +65,7 @@ class DefaultDatasetLoaderTest {
                 [
                   {
                     "id": "infra-kubernetes-aws",
-                    "query": "como configurar kubernetes na aws?",
-                    "expectedIntent": "infra"
+                    "description": null
                   }
                 ]
                 """, StandardCharsets.UTF_8);
@@ -75,7 +74,7 @@ class DefaultDatasetLoaderTest {
                 resourceLoader,
                 objectMapper,
                 validator,
-                new DatasetProperties(missingDescriptionFile.toUri().toString())
+                new Envie(missingDescriptionFile.toUri().toString())
         );
 
         assertThatThrownBy(loader::load)
@@ -91,7 +90,7 @@ class DefaultDatasetLoaderTest {
                 resourceLoader,
                 objectMapper,
                 validator,
-                new DatasetProperties(missingFile.toUri().toString())
+                new Envie(missingFile.toUri().toString())
         );
 
         assertThatThrownBy(loader::load)
