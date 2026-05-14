@@ -4,6 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: clss-search-evaluator
+    ports:
+      - "8080:8080"
     environment:
       OUTPUT_DIR: /app/output
       DATASET_PATH: classpath:dataset/queries.json
