@@ -1,0 +1,10 @@
+[
+  {
+    "id": "kubernetes-aws-microservices",
+    "description": "Modernizar nossa infraestrutura com Kubernetes na AWS, adotando microsservicos, pipelines de CI/CD e monitoramento com logs, metricas e tracing distribuido"
+  },
+  {
+    "id": "java-basico",
+    "description": "Quero aprender Java do zero com foco em fundamentos, orientacao a objetos e boas praticas"
+  }
+]
