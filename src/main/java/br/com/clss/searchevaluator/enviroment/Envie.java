@@ -34,6 +34,10 @@ public class Envie {
         return getRequiredText("output.dir", DEFAULT_OUTPUT_DIR);
     }
 
+    public String getSearchAuthToken() {
+        return env.getProperty("search.auth-token");
+    }
+
     private String getRequiredText(String propertyName, String defaultValue) {
         String value = env.getProperty(propertyName, defaultValue);
         if (!StringUtils.hasText(value)) {
