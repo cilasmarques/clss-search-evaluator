@@ -1,0 +1,13 @@
+services:
+  clss-search-evaluator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: clss-search-evaluator
+    environment:
+      OUTPUT_DIR: /app/output
+      DATASET_PATH: classpath:dataset/queries.json
+      SEARCH_HOST: http://host.docker.internal:8080
+      SEARCH_PATH: /search
+    volumes:
+      - ./output:/app/output
