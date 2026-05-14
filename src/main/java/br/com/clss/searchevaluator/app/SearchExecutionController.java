@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,14 +32,13 @@ public class SearchExecutionController {
     }
 
     @PostMapping("/run")
-    public String run() {
+    public List<OutputDTO> run() {
         try {
             List<DatasetItemDTO> datasetItems = jsonValidatorService.loadAndValidate();
             List<SearchResultDTO> searchResults = searchDispatchService.executeAll(datasetItems);
             List<OutputDTO> outputs = combine(datasetItems, searchResults);
-            Path outputFile = outputService.save(outputs);
-
-            return outputFile.toString();
+            outputService.save(outputs);
+            return outputs;
         } catch (IllegalStateException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         } catch (IOException | InterruptedException e) {
