@@ -1,12 +1,17 @@
 package br.com.clss.searchevaluator.config;
 
-public final class Envie {
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
-    public static final String SPRING_APPLICATION_NAME = "spring.application.name";
-    public static final String SEARCH_HOST = "search.host";
-    public static final String DATASET_PATH = "dataset.path";
-    public static final String OUTPUT_DIR = "output.dir";
+@ConfigurationProperties(prefix = "dataset")
+public class Envie {
 
-    private Envie() {
+    private String path;
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }
