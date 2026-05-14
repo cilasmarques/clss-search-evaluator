@@ -2,7 +2,6 @@ package br.com.clss.searchevaluator.app;
 
 import br.com.clss.searchevaluator.app.dtos.DatasetItemDTO;
 import br.com.clss.searchevaluator.app.dtos.OutputDTO;
-import br.com.clss.searchevaluator.app.dtos.RunBatchResponseDTO;
 import br.com.clss.searchevaluator.app.dtos.SearchResultDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,14 +33,14 @@ public class SearchExecutionController {
     }
 
     @PostMapping("/run")
-    public RunBatchResponseDTO run() {
+    public String run() {
         try {
             List<DatasetItemDTO> datasetItems = jsonValidatorService.loadAndValidate();
             List<SearchResultDTO> searchResults = searchDispatchService.executeAll(datasetItems);
             List<OutputDTO> outputs = combine(datasetItems, searchResults);
             Path outputFile = outputService.save(outputs);
 
-            return new RunBatchResponseDTO(outputs.size(), outputFile.toString());
+            return outputFile.toString();
         } catch (IllegalStateException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         } catch (IOException | InterruptedException e) {
