@@ -10,6 +10,7 @@ public class Envie {
     private static final String DEFAULT_DATASET_PATH = "classpath:dataset/queries.json";
     private static final String DEFAULT_SEARCH_HOST = "http://localhost:8080";
     private static final String DEFAULT_SEARCH_PATH = "/search";
+    private static final String DEFAULT_OPENAI_MODEL = "gpt-4.1-mini";
 
     private final Environment env;
 
@@ -27,6 +28,18 @@ public class Envie {
 
     public String getSearchPath() {
         return getRequiredText("search.path", DEFAULT_SEARCH_PATH);
+    }
+
+    public String getOpenAiModel() {
+        return getRequiredText("openai.model", DEFAULT_OPENAI_MODEL);
+    }
+
+    public String getOpenAiApiKey() {
+        String apiKey = env.getProperty("openai.api-key");
+        if (!StringUtils.hasText(apiKey)) {
+            throw new IllegalStateException("openai.api-key must not be empty");
+        }
+        return apiKey;
     }
 
     private String getRequiredText(String propertyName, String defaultValue) {
