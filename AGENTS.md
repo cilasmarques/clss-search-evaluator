@@ -23,7 +23,7 @@ Prefer small, repo-grounded changes over generic cleanups.
 - `spring-boot-starter-test`
 - `com.squareup.okhttp3:mockwebserver` 4.12.0
 - JSON dataset input and JSON file output
-- Configuration via `application.yml` plus environment variables such as `OPENAI_API_KEY`
+- Configuration via `application.properties` plus environment variables such as `OPENAI_API_KEY`
 
 
 ## Testing guidance
