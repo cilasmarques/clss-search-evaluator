@@ -1,6 +1,7 @@
 # AGENTS.md
 
 **Always** create a worktree when implementing something new. Create them in `../worktrees/<name>`
+**Whenever implementing a new class**, such as a service, controller, or interface, add a JavaDoc comment at the beginning of the file explaining its purpose and responsibility.
 
 ## Project structure hints
 
@@ -79,3 +80,18 @@
 - Preserve established behavior unless the task explicitly changes it.
 - When legacy code conflicts with the preferred pattern, improve the touched area without turning the task into a broad rewrite.
 - Git: keep commits scoped to the task; avoid unrelated refactors in the same diff.
+
+## Branch and Commit Pattern
+
+- Branches must follow the format: `feat-xxx`
+  - Example: `feat-social-login`
+  - Use lowercase letters and hyphens to separate words.
+
+- Commits must follow the format: `feat: description`
+  - Example: `feat: add social login`
+  - The description should be short, written in English, and clearly describe the main change.
+
+- Before committing, validate that:
+  - The branch starts with `feat-`
+  - The commit starts with `feat:`
+  - The commit description is concise and has no ending period
