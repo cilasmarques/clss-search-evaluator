@@ -10,6 +10,7 @@ public class Envie {
     private static final String DEFAULT_DATASET_PATH = "classpath:dataset/queries.json";
     private static final String DEFAULT_SEARCH_HOST = "http://localhost:8080";
     private static final String DEFAULT_SEARCH_PATH = "/search";
+    private static final String DEFAULT_OUTPUT_DIR = "output";
 
     private final Environment env;
 
@@ -27,6 +28,10 @@ public class Envie {
 
     public String getSearchPath() {
         return getRequiredText("search.path", DEFAULT_SEARCH_PATH);
+    }
+
+    public String getOutputDir() {
+        return getRequiredText("output.dir", DEFAULT_OUTPUT_DIR);
     }
 
     private String getRequiredText(String propertyName, String defaultValue) {

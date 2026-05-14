@@ -4,7 +4,6 @@ import br.com.clss.searchevaluator.enviroment.Envie;
 import br.com.clss.searchevaluator.app.dtos.DatasetItemDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @Component
-public class JsonValidatorService implements CommandLineRunner {
+public class JsonValidatorService {
 
     private static final TypeReference<List<DatasetItemDTO>> DATASET_TYPE = new TypeReference<>() {};
 
@@ -27,11 +26,6 @@ public class JsonValidatorService implements CommandLineRunner {
         this.objectMapper = objectMapper;
         this.resourceLoader = resourceLoader;
         this.envie = envie;
-    }
-
-    @Override
-    public void run(String... args) throws IOException {
-        loadAndValidate();
     }
 
     public List<DatasetItemDTO> loadAndValidate() throws IOException {
