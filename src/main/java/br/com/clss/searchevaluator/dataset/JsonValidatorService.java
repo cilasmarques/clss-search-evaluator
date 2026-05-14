@@ -39,7 +39,7 @@ public class JsonValidatorService implements CommandLineRunner {
     }
 
     public List<SearchQueryDTO> loadAndValidate() {
-        String datasetPath = envie.getPath();
+        String datasetPath = envie.getDatasetPath();
         if (!StringUtils.hasText(datasetPath)) {
             throw new IllegalStateException("dataset.path must not be empty");
         }

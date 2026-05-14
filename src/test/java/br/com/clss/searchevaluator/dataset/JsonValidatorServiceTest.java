@@ -4,6 +4,7 @@ import br.com.clss.searchevaluator.config.Envie;
 import br.com.clss.searchevaluator.dataset.dto.SearchQueryDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.mock.env.MockEnvironment;
 import org.springframework.core.io.ResourceLoader;
 
 import java.nio.file.Files;
@@ -87,8 +88,10 @@ class JsonValidatorServiceTest {
     }
 
     private JsonValidatorService createValidator(String datasetPath) {
-        Envie envie = new Envie();
-        envie.setPath(datasetPath);
+        MockEnvironment environment = new MockEnvironment();
+        environment.setProperty("dataset.path", datasetPath);
+
+        Envie envie = new Envie(environment);
         return new JsonValidatorService(
                 new com.fasterxml.jackson.databind.ObjectMapper(),
                 resourceLoader(),
