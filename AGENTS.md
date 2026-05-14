@@ -1,7 +1,6 @@
 # AGENTS.md
 
-Actionable guidance for AI coding agents working in `clss-search-evaluator`.
-Prefer small, repo-grounded changes over generic cleanups.
+**Always** create a worktree when implementing something new. Create them in `../worktrees/<name>`
 
 ## Project structure hints
 
@@ -25,9 +24,7 @@ Prefer small, repo-grounded changes over generic cleanups.
 - JSON dataset input and JSON file output
 - Configuration via `application.properties` plus environment variables such as `OPENAI_API_KEY`
 
-
 ## Testing guidance
-
 - Never mock, spy, fake, or partially replace the behavior that the test is supposed to verify.
   - If the test verifies repository queries or persistence behavior, use the real repository and database.
   - If the test verifies service orchestration, instantiate/use the real service and mock only external collaborators.

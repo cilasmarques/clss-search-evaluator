@@ -1,0 +1,10 @@
+[
+  {
+    "id": "kubernetes-aws-microservices",
+    "description": "Query sobre infraestrutura Kubernetes na AWS"
+  },
+  {
+    "id": "java-basico",
+    "description": "Query sobre java e springboot"
+  }
+]
