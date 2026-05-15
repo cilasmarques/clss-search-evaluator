@@ -5,6 +5,7 @@ import br.com.clss.searchevaluator.app.dtos.OutputDTO;
 import br.com.clss.searchevaluator.app.dtos.SearchResultDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -32,11 +33,11 @@ public class SearchExecutionController {
     }
 
     @PostMapping("/run")
-    public List<OutputDTO> run() {
+    public List<OutputDTO> run(@RequestBody List<DatasetItemDTO> datasetItems) {
         try {
-            List<DatasetItemDTO> datasetItems = jsonValidatorService.loadAndValidate();
-            List<SearchResultDTO> searchResults = searchDispatchService.executeAll(datasetItems);
-            List<OutputDTO> outputs = combine(datasetItems, searchResults);
+            List<DatasetItemDTO> validatedItems = jsonValidatorService.validate(datasetItems);
+            List<SearchResultDTO> searchResults = searchDispatchService.executeAll(validatedItems);
+            List<OutputDTO> outputs = combine(validatedItems, searchResults);
             outputService.save(outputs);
             return outputs;
         } catch (IllegalStateException e) {

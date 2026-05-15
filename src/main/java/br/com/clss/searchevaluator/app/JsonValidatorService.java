@@ -32,6 +32,11 @@ public class JsonValidatorService {
         Resource resource = resourceLoader.getResource(envie.getDatasetPath());
         List<DatasetItemDTO> items = objectMapper.readValue(resource.getInputStream(), DATASET_TYPE);
 
+        return validate(items);
+    }
+
+    public List<DatasetItemDTO> validate(List<DatasetItemDTO> items) {
+
         if (items == null || items.isEmpty()) {
             throw new IllegalStateException("Dataset must contain at least one item");
         }
