@@ -103,4 +103,17 @@ class JsonValidatorServiceTest {
     private ResourceLoader resourceLoader() {
         return new DefaultResourceLoader();
     }
+
+    @Test
+    void validate__should_return_items_when_payload_is_valid() {
+        JsonValidatorService validator = createValidator("classpath:dataset/queries.json");
+
+        List<DatasetItemDTO> items = validator.validate(List.of(
+                new DatasetItemDTO("id-1", "first"),
+                new DatasetItemDTO("id-2", "second")
+        ));
+
+        assertThat(items).hasSize(2);
+        assertThat(items).extracting(DatasetItemDTO::id).containsExactly("id-1", "id-2");
+    }
 }
