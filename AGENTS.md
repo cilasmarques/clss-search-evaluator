@@ -1,7 +1,6 @@
 # AGENTS.md
 
-**Always** create a worktree when implementing something new. Create them in `../worktrees/<name>`
-**Whenever implementing a new class**, such as a service, controller, or interface, add a JavaDoc comment at the beginning of the file explaining its purpose and responsibility.
+**Whenever implementing a new class**, such as a service, controller, or interface, add a simple JavaDoc comment at the beginning of the file explaining its purpose and responsibility.
 
 ## Project structure hints
 
